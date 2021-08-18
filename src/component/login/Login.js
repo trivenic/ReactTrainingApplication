@@ -1,11 +1,16 @@
 import { useState } from "react";
 import "./Login.css";
+import Data from "../data/Data.js";
+import { Link, useHistory } from "react-router-dom";
 
 function Login() {
+    const history =useHistory();
   const [loginFormData, setLoginFormData] = useState({
-    userid: "",
+    email: "",
     password: "",
   });
+
+  const [isLogging,setIsLogging]=useState(false);
 
   function handleInputChange({ target }) {
     const { name, value } = target;
@@ -13,18 +18,25 @@ function Login() {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(loginFormData);
+    Data.map((data) => {
+       if(data.email === loginFormData.email && data.password=== loginFormData.password) 
+       {
+           history.push('/blogs');
+       }
+       
+    });
+    setIsLogging(true);
   }
-  const { userid, password } = loginFormData;
+  const { email, password } = loginFormData;
   return (
     <>
       <form className="LoginForm" onSubmit={handleSubmit}>
         <div className="LoginForm-wrapper-div">
-          <label className="LoginForm-label">Enter User Id :</label>
+          <label className="LoginForm-label">Enter Email Id :</label>
           <input
-            type="text"
-            name="userid"
-            value={userid}
+            type="email"
+            name="email"
+            value={email}
             onChange={handleInputChange}
             className="LoginForm-input"
           />
@@ -42,6 +54,7 @@ function Login() {
           <button type="reset" className="LoginForm-button">
             Cancel
           </button>
+        {isLogging?(<span>Wrong EmailId or Password</span>):null}
         </div>
       </form>
     </>

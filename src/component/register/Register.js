@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 import './Register.css';
 
 function Register() {
+  const history=useHistory();
   const [registerFormData, setRegisterFormData] = useState({
     name: "",
     email: "",
@@ -16,6 +18,8 @@ function Register() {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(registerFormData);
+    history.push('/login');
+
   }
   const { name, email, password,  dateOfBirth } = registerFormData;
   return (
@@ -55,7 +59,7 @@ function Register() {
             className="RegisterForm-input"
           />
           <button type="submit" className="RegisterForm-button">
-            Login
+            Register
           </button>
           <button type="reset" className="RegisterForm-button">
             Cancel

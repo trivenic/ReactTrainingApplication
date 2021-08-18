@@ -4,9 +4,6 @@ import './Home.css'
 import Routes from "../route/Routes";
 function Home(){
 
-    const {isLogging,setIsLogging}=useState(false);
-    const {isRegister,setIsRegister}=useState(false);
-
     return( 
      
     <div className="Home">
