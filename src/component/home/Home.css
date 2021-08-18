@@ -1,0 +1,11 @@
+.Home-nav{
+    background-color: skyblue;
+    text-align: right;
+}
+.Home-nav-link{
+    margin-left: 5px;
+    color: white;
+}
+.Home-nav-link:hover{
+    color: red;
+}
