@@ -1,5 +1,16 @@
+import { useState } from "react";
+
 function Home(){
-    return <div>Welcome ,React </div>
+
+    const {isLogging,setIsLogging}=useState(false);
+    const {isRegister,setIsRegister}=useState(false);
+    
+    return( 
+    <div>
+        <h1>Welcome ,React</h1> 
+        <button>Login</button>
+        <button>Register</button>
+    </div>);
 
 }
 
