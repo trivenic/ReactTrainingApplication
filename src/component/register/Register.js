@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-import './Register.css';
+import Data from "../data/Data.js";
+import "./Register.css";
 
 function Register() {
-  const history=useHistory();
+  const history = useHistory();
   const [registerFormData, setRegisterFormData] = useState({
     name: "",
     email: "",
@@ -17,11 +18,18 @@ function Register() {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(registerFormData);
-    history.push('/login');
-
+    const user = {
+    id: Math.floor(Math.random() * (999999 - 99) + 99),
+      name: registerFormData.name,
+      email: registerFormData.email,
+      password: registerFormData.password,
+      dateOfBirth: registerFormData.dateOfBirth,
+    };
+    Data.push(user);
+    console.log(Data);
+    history.push("/login");
   }
-  const { name, email, password,  dateOfBirth } = registerFormData;
+  const { name, email, password, dateOfBirth } = registerFormData;
   return (
     <>
       <form className="RegisterForm" onSubmit={handleSubmit}>
