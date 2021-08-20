@@ -38,3 +38,7 @@
     color: white;
     border-color: #132e7c;
 }
+.LoginForm-error{
+    color: red;
+    
+}
