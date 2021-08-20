@@ -15,7 +15,6 @@ function Routes({setIsLoggedOut}){
                    <Route path='/blogs' component={Blogs}></Route>
                    <Route path='/logout' component={Logout}></Route>
                 </Switch>
-            
         </>
     )
 }

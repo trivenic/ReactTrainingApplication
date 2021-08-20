@@ -1,34 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.css";
 import Data from "../data/Data.js";
 import { useHistory } from "react-router-dom";
 
-function Login({setIsLoggedOut}) {
+function Login({ setIsLoggedOut }) {
+  const history = useHistory();
 
-  const history =useHistory();
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
   });
 
-  const [isLogging,setIsLogging]=useState(false);
   
+  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isLogging, setIsLogging] = useState(false);
+  const [isFormEmpty, setIsFormEmpty] = useState(false);
+
   function handleInputChange({ target }) {
     const { name, value } = target;
+    if (name === "email") {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        setIsValidEmail(false);
+      } else {
+        setIsValidEmail(true);
+      }
+    }
+    if (name === "password") {
+      if (value.length <= 2) {
+        setIsValidPassword(true);
+      } else {
+        setIsValidPassword(false);
+      }
+    }
     setLoginFormData({ ...loginFormData, [name]: value });
+    setIsLogging(false);
+    setIsFormEmpty(false);
   }
   function handleSubmit(event) {
     event.preventDefault();
-    Data.map((data) => {
-       if(data.email === loginFormData.email && data.password=== loginFormData.password) 
-       {
-           setIsLoggedOut(true);
-           history.push('/blogs');
-       }
-       
-    });
-    setIsLogging(true);
+    if (loginFormData.email === "" || loginFormData.password === "") {
+      setIsFormEmpty(true);
+    } else {
+      Data.map((data) => {
+        if (
+          data.email === loginFormData.email &&
+          data.password === loginFormData.password
+        ) {
+          setIsLoggedOut(true);
+          history.push("/blogs");
+        } else {
+          setIsLogging(true);
+        }
+      });
+    }
   }
+
+  useEffect(() => {}, [loginFormData.password, isLogging, isFormEmpty]);
+
   const { email, password } = loginFormData;
   return (
     <>
@@ -42,6 +71,11 @@ function Login({setIsLoggedOut}) {
             onChange={handleInputChange}
             className="LoginForm-input"
           />
+          {isValidEmail ? (
+            <span className="LoginForm-error">
+              Email id shoukd be in format 'abc@gmail.com'{" "}
+            </span>
+          ) : null}
           <label className="LoginForm-label">Enter Password :</label>
           <input
             type="password"
@@ -50,17 +84,29 @@ function Login({setIsLoggedOut}) {
             onChange={handleInputChange}
             className="LoginForm-input"
           />
+          {isValidPassword ? (
+            <span className="LoginForm-error">
+              Password should be greater 2
+            </span>
+          ) : null}
+          <br />
           <button type="submit" className="LoginForm-button">
             Login
           </button>
           <button type="reset" className="LoginForm-button">
             Cancel
           </button>
-        {isLogging?(<span>Wrong EmailId or Password</span>):null}
+          {isLogging ? (
+            <span className="LoginForm-error">Wrong EmailId or Password</span>
+          ) : null}
+          {isFormEmpty ? (
+            <span className="LoginForm-error">All fields required</span>
+          ) : null}
+          <br />
+          <br />
         </div>
       </form>
     </>
   );
 }
-
 export default Login;
