@@ -15,8 +15,6 @@ const data =[
         dateOfBirth: "1996-11-11"
 
     }
-    
-
 ]
 
 export default data;
