@@ -1,17 +1,18 @@
 import { useState } from "react";
 import "./Login.css";
 import Data from "../data/Data.js";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-function Login() {
-    const history =useHistory();
+function Login({setIsLoggedOut}) {
+
+  const history =useHistory();
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
   });
 
   const [isLogging,setIsLogging]=useState(false);
-
+  
   function handleInputChange({ target }) {
     const { name, value } = target;
     setLoginFormData({ ...loginFormData, [name]: value });
@@ -21,6 +22,7 @@ function Login() {
     Data.map((data) => {
        if(data.email === loginFormData.email && data.password=== loginFormData.password) 
        {
+           setIsLoggedOut(true);
            history.push('/blogs');
        }
        
