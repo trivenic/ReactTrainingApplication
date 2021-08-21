@@ -38,3 +38,8 @@
     color: white;
     border-color: #132e7c;
 }
+.RegisterForm-error
+{
+    color: red;
+    margin: 10px 10px;
+}
