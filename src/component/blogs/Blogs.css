@@ -6,22 +6,24 @@
 
 .Blog-card{
     width: 250px;
+    height: 300px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
     margin:20px;
     background-color:#e6f3ff;
+  }
+  .Blog-card:hover{
+    background-color:#DBE7EF;
   }
 
 .Blog-header {
     background-color: #9999ff;
     color: white;
     margin:5px;
-    /* padding: 0.5px; */
     border-radius: 5px;
   }
 
 .Blog-container {
-    /* padding: 1px; */
     margin:3px;
 
   }

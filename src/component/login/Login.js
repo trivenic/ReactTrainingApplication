@@ -11,8 +11,7 @@ function Login({ setIsLoggedOut }) {
     password: "",
   });
 
-  
-  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [isValidPassword, setIsValidPassword] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isLogging, setIsLogging] = useState(false);
   const [isFormEmpty, setIsFormEmpty] = useState(false);
@@ -27,7 +26,7 @@ function Login({ setIsLoggedOut }) {
       }
     }
     if (name === "password") {
-      if (value.length <= 2) {
+      if (/^[a-z]{3,12}$/.test(value)) {
         setIsValidPassword(true);
       } else {
         setIsValidPassword(false);
@@ -36,6 +35,12 @@ function Login({ setIsLoggedOut }) {
     setLoginFormData({ ...loginFormData, [name]: value });
     setIsLogging(false);
     setIsFormEmpty(false);
+  }
+  function handleForm() {
+    setLoginFormData({
+      email: "",
+      password: "",
+    });
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -84,16 +89,20 @@ function Login({ setIsLoggedOut }) {
             onChange={handleInputChange}
             className="LoginForm-input"
           />
-          {isValidPassword ? (
+          {isValidPassword ? null : (
             <span className="LoginForm-error">
-              Password should be greater 2
+              Password should be 3 to 12 charecter long
             </span>
-          ) : null}
+          )}
           <br />
           <button type="submit" className="LoginForm-button">
             Login
           </button>
-          <button type="reset" className="LoginForm-button">
+          <button
+            type="reset"
+            onClick={handleForm}
+            className="LoginForm-button"
+          >
             Cancel
           </button>
           {isLogging ? (
@@ -110,4 +119,3 @@ function Login({ setIsLoggedOut }) {
   );
 }
 export default Login;
-
