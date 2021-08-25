@@ -16,6 +16,7 @@ function Layout(){
                 <Link to='/login' className="Layout-nav-link">Login</Link>
                 <Link to='/register' className="Layout-nav-link">Register</Link>
                 {isLoggedOut?( <Link to='/logout' className="Layout-nav-link" onClick={handleLogout}>Logout</Link>):null}
+                
             </nav>
         </header>
         <main>

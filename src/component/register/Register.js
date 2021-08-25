@@ -46,13 +46,6 @@ function Register() {
     setIsFormEmpty(false);
     setRegisterFormData({ ...registerFormData, [name]: value });
   }
-
-  function handleForm(){
-    setRegisterFormData({name: "",
-    email: "",
-    password: "",
-    dateOfBirth: ""})
-  }
   function handleSubmit(event) {
     event.preventDefault();
     if(registerFormData.name===""||registerFormData.email===""||registerFormData.password===""||registerFormData.dateOfBirth===""){
@@ -66,10 +59,8 @@ function Register() {
         password: registerFormData.password,
         dateOfBirth: registerFormData.dateOfBirth,
       };
-
       Data.push(user);
       console.log(Data);
-      alert("Registered Successfully!!!");
       history.push("/login");
     }
     
@@ -136,7 +127,7 @@ function Register() {
           <button type="submit" className="RegisterForm-button">
             Register
           </button>
-          <button type="reset" onClick={handleForm} className="RegisterForm-button">
+          <button type="reset" className="RegisterForm-button">
             Cancel
           </button>
           <br />
