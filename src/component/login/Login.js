@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import Data from "../data/Data.js";
 import { useHistory } from "react-router-dom";
+import LoginContext from "../context/LoginContex";
 
 function Login({ setIsLoggedOut }) {
   const history = useHistory();
@@ -15,6 +16,7 @@ function Login({ setIsLoggedOut }) {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isLogging, setIsLogging] = useState(false);
   const [isFormEmpty, setIsFormEmpty] = useState(false);
+  const {setIsLoggedUserIn} =useContext(LoginContext);
 
   function handleInputChange({ target }) {
     const { name, value } = target;
@@ -52,6 +54,7 @@ function Login({ setIsLoggedOut }) {
           data.email === loginFormData.email &&
           data.password === loginFormData.password
         ) {
+          setIsLoggedUserIn({name:data.name,email:data.email})
           setIsLoggedOut(true);
           history.push("/blogs");
         } else {
