@@ -1,17 +1,21 @@
 import Routes from "../route/Routes";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import './Layout.css'
+import LoginContext from "../context/LoginContex";
 function Layout(){
 
     const [isLoggedOut,setIsLoggedOut]=useState(false);
     function handleLogout(){
         setIsLoggedOut(false);
     }
+    const {isLoggedInUser} =useContext(LoginContext);
     return (
         <div className="Layout">
             <header className="Layout-header">
             <h1>React Application</h1> 
+            {(isLoggedInUser.name==="Guest")?(<h4>Welcome,Guest</h4>):(<h4>Welcome , {isLoggedInUser.name}</h4>)}
+            <h5>{isLoggedInUser.email}</h5>
             <nav className="Layout-nav">
                 <Link to='/login' className="Layout-nav-link">Login</Link>
                 <Link to='/register' className="Layout-nav-link">Register</Link>
