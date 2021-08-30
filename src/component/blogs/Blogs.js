@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import "./Blogs.css";
 
 function Blogs() {
   const [data, setData] = useState([]);
+  const dispatch=useDispatch();
+  const [isAddedtoCart,setIsAddedToCart]=useState(false);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -11,6 +14,17 @@ function Blogs() {
         setData(data);
       });
   }, []);
+
+  const addToCarts=(data,event)=>{
+    console.log(event);
+    dispatch({type:'increment',payload:{id:data.id}});
+    isAddedtoCart?setIsAddedToCart(false):setIsAddedToCart(true);
+
+  }
+  const removeFromCart =(data)=>{
+    dispatch({type:'decrement',payload:{id:data.id}})
+    isAddedtoCart?setIsAddedToCart(false):setIsAddedToCart(true);
+  }
 
   return (
     <div className="Blog">
@@ -28,6 +42,10 @@ function Blogs() {
             </p>
             <h4>Company Name </h4>
             <p>{d.company.name}</p>
+              
+                      
+             <button onClick={(event)=>addToCarts(d,event)}>Add to Carts</button>
+             <button onClick={()=>removeFromCart(d)} disabled>Remove From Carts</button>
           </div>
         </div>
       ))}
